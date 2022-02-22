@@ -23,19 +23,22 @@ public class AdminController {
     @PostMapping("/item")
     public ResponseEntity<Map<String, Object>> addItem(ItemDto itemDto) {
 
+        HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
 
         Map<String,Object> resultMap= new HashMap<>();
 
         try {
             itemForAService.addItem(itemDto);
             resultMap.put("message","SUCCESS");
+            status = HttpStatus.ACCEPTED;
         } catch (Exception e) {
             resultMap.put("message","저장안됨");
             e.printStackTrace();
+            status = HttpStatus.BAD_REQUEST;
         }
 
 
-        return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.ACCEPTED);
+        return new ResponseEntity<Map<String, Object>>(resultMap, status);
     }
 
 

@@ -26,11 +26,11 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 @SpringBootTest
 @AutoConfigureMockMvc
 public class AdminControllerTest {
-    static String jwt = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VySW5mbyIsIm5pY2tOYW1lIjoi7Iug7Lap7ZiEIiwiaWQiOiJ5YmozQG5hdmVyLmNvbSIsImV4cCI6MTYxOTY0MzU1OCwiZW1haWwiOiJ5YmozQG5hdmVyLmNvbSJ9.Tqi2cNeU-x0Z0XDn_iNfJIKFIDFSENEfUPpf17kd2D4";
+    static String jwt = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VySW5mbyIsIm5pY2tOYW1lIjoi7Iug7Lap7ZiEIiwiaWQiOiJ5YmozQG5hdmVyLmNvbSIsImV4cCI6MTY0NTUzMjIyOSwiZW1haWwiOiJ5YmozQG5hdmVyLmNvbSJ9.qXl-m18fQx6aRshJ1AmksrTy394k05VXA6VsgtTA35g";
     @Autowired
     private MockMvc mockMvc;
 
-    //@Test
+    @Test
     public void test_addItem() throws Exception {
 
         MultiValueMap<String, String> info = new LinkedMultiValueMap<>();
@@ -39,7 +39,7 @@ public class AdminControllerTest {
         info.add("item_price", "990");
         info.add("item_count", "100");
 
-        MvcResult result =  mockMvc.perform(post("/api/addItem")
+        MvcResult result =  mockMvc.perform(post("/api/item")
                 .params(info))
                 .andReturn();
         System.out.println("addItem test 결과 : ");
@@ -47,13 +47,13 @@ public class AdminControllerTest {
 
     }
 
-    //@Test
+    @Test
     public void test_buyItem() throws Exception {
 
         MultiValueMap<String, String> info = new LinkedMultiValueMap<>();
         info.add("jwt", jwt);
         info.add("item_no", "1");
-        MvcResult result =  mockMvc.perform(put("/api/buyItem")
+        MvcResult result =  mockMvc.perform(put("/api/item")
                 .params(info))
                 .andReturn();
         System.out.println("buyItem Test 결과 : ");
@@ -67,7 +67,7 @@ public class AdminControllerTest {
 
         MultiValueMap<String, String> info = new LinkedMultiValueMap<>();
         info.add("jwt", jwt);
-        MvcResult result =  mockMvc.perform(get("/api/getAllItem")
+        MvcResult result =  mockMvc.perform(get("/api/allItemInfo")
                 .params(info))
                 .andReturn();
         System.out.println("getAll Test 결과 : ");
